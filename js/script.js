@@ -10,21 +10,14 @@ let page = Math.floor(stList.length/10);
 
 
 
-// Create a function to hide all of the items in the list excpet for the ten you want to show
-// Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
+// the showPage function loops through the list of students then with the help of the if statement, only displays 10 at a time
 const showPage = (stList, page) => {
-    // first hide all students on the page
-
-    // Then loop through all students in our student list argument
     for (let i = 0; i < stList.length; i++) {
-       // if student should be on this page number
         if (i >= 0 && i <= 9) {
             stList[i].style.display = 'block';
         } else {
             stList[i].style.display = 'none';
         }
-           // show the student
-
     }
  }
 showPage(stList, page);
