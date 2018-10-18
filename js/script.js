@@ -4,24 +4,30 @@ FSJS project 2 - List Filter and Pagination
 ******************************************/
 
 // Add variables that store DOM elements you will need to reference and/or manipulate
-const $studentList = $('.student-list');
-let page = 1;
-let pageLinks = 0;
+const stList = $('.student-item');
+let page = Math.floor(stList.length/10);
+
 
 
 
 // Create a function to hide all of the items in the list excpet for the ten you want to show
 // Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
-function showPage(page, $studentList) {
+const showPage = (stList, page) => {
     // first hide all students on the page
-    $studentList.hide();
-    // Then loop through all students in our student list argument
-    for (let i=0; i <= $studentList.length; i++) {
-       // if student should be on this page number
 
+    // Then loop through all students in our student list argument
+    for (let i = 0; i < stList.length; i++) {
+       // if student should be on this page number
+        if (i >= 0 && i <= 9) {
+            stList[i].style.display = 'block';
+        } else {
+            stList[i].style.display = 'none';
+        }
            // show the student
+
     }
  }
+showPage(stList, page);
 
 
 
