@@ -43,6 +43,9 @@ showPage(page, studentList);
 
 //search functionality
 const searchList = () => {
+    $('.page-header').append('<div class="student-search">');
+    $('.student-search').append('<input placeholder="Searching for students...">');
+    $('.student-search').append('<button>Search</button>');
     // Obtain the value of the search input
     // remove the previous page link section    
     // Loop over the student list, and for each student…
@@ -56,6 +59,7 @@ const searchList = () => {
            // ...call appendPageLinks with the matched students
    // Call showPage to show first ten students of matched list
 }
+searchList();
 
 
 
