@@ -5,7 +5,8 @@ FSJS project 2 - List Filter and Pagination
 
 // Add variables that store DOM elements you will need to reference and/or manipulate
 const stList = $('.student-item');
-let page = Math.floor(stList.length/10);
+let page = Math.ceil(stList.length/10);
+let pageNum = 0;
 
 
 
@@ -23,9 +24,8 @@ const showPage = (stList, page) => {
 showPage(stList, page);
 
 
-
 // Create and append the pagination links - Creating a function that can do this is a good approach
-function appendPageLinks(/* take a student list as an argument */) {
+function appendPageLinks(stList) {
     // determine how many pages for this student list 
     // create a page link section
     // “for” every page
@@ -35,9 +35,19 @@ function appendPageLinks(/* take a student list as an argument */) {
     // define what happens when you click a link
         // Use the showPage function to display the page for the link clicked
         // mark that link as “active”
+    $('.page').append('<div class="pagination">');
+    $('.pagination').append('<ul>');
+    for (i=0; i <= page; i++) {
+        pageNum += 1;
+        $('.pagination ul').append('<li><a href="#">'+pageNum+'</a></li>');
+        $('.pagination ul li a').on('click', () => {
+            let page = this.textContent;
+            showPage(stList, page);
+        });
+    }
 }
-
-
+appendPageLinks();
+showPage(stList, page);
 
 
 // Add functionality to the pagination buttons so that they show and hide the correct items
