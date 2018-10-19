@@ -3,21 +3,16 @@ Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
 
-// Add variables that store DOM elements you will need to reference and/or manipulate
+// variables which hold the list of students from the HTML and the page and page numbers which are created dynamically
 const studentList = $('.student-item');
 let page = 1;
 let pageNumber = 0;
 
 
-// Create a function to hide all of the items in the list excpet for the ten you want to show
-// Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
+// function which makes the page display only 10 students at a time. sets up the pages to be used in the page links in the next function
 const showPage = (page, studentList) => {
     let max = 10 * page - 1;
     let min = 10 * page - 10;
-    // first hide all students on the page
-    // Then loop through all students in our student list argument
-    // if student should be on this page number
-        // show the student
     for (i = 0; i < studentList.length; i++) {
        studentList[i].style.display = 'none';
        if (i >= min && i <= max) {
@@ -28,17 +23,8 @@ const showPage = (page, studentList) => {
 
 
 
-// Create and append the pagination links - Creating a function that can do this is a good approach
+// created the page links dynamically and connected it to the showPage function above. 
 const appendPageLinks = () => {
-    // determine how many pages for this student list 
-    // create a page link section
-    // “for” every page
-        // add a page link to the page link section
-    // remove the old page link section from the site
-    // append our new page link section to the site
-    // define what happens when you click a link
-        // Use the showPage function to display the page for the link clicked
-        // mark that link as “active”
         $('.page').append('<div class="pagination">');
         $('.pagination').append('<ul>');
         for (i=0; i <= studentList.length/10; i++) {
@@ -54,14 +40,8 @@ appendPageLinks();
 showPage(page, studentList);
 
 
-
-// Add functionality to the pagination buttons so that they show and hide the correct items
-// Tip: If you created a function above to show/hide list items, it could be helpful here
-
-
-
 //search functionality
-function searchList() {
+const searchList = () => {
     // Obtain the value of the search input
     // remove the previous page link section    
     // Loop over the student list, and for each student…
