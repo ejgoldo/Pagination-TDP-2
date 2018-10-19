@@ -4,28 +4,32 @@ FSJS project 2 - List Filter and Pagination
 ******************************************/
 
 // Add variables that store DOM elements you will need to reference and/or manipulate
-const stList = $('.student-item');
-let page = Math.ceil(stList.length/10);
-let pageNum = 0;
+const studentList = $('.student-item');
+let page = 1;
+let pageNumber = 0;
 
 
+// Create a function to hide all of the items in the list excpet for the ten you want to show
+// Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
+const showPage = (page, studentList) => {
+    let max = 10 * page - 1;
+    let min = 10 * page - 10;
+    // first hide all students on the page
+    // Then loop through all students in our student list argument
+    // if student should be on this page number
+        // show the student
+    for (i = 0; i < studentList.length; i++) {
+       studentList[i].style.display = 'none';
+       if (i >= min && i <= max) {
+           studentList[i].style.display = 'block';
+       }
+     }
+}
 
-
-// the showPage function loops through the list of students then with the help of the if statement, only displays 10 at a time
-const showPage = (stList, page) => {
-    for (let i = 0; i < stList.length; i++) {
-        if (i >= 0 && i <= 9) {
-            stList[i].style.display = 'block';
-        } else {
-            stList[i].style.display = 'none';
-        }
-    }
- }
-showPage(stList, page);
 
 
 // Create and append the pagination links - Creating a function that can do this is a good approach
-function appendPageLinks(stList) {
+const appendPageLinks = () => {
     // determine how many pages for this student list 
     // create a page link section
     // “for” every page
@@ -35,19 +39,20 @@ function appendPageLinks(stList) {
     // define what happens when you click a link
         // Use the showPage function to display the page for the link clicked
         // mark that link as “active”
-    $('.page').append('<div class="pagination">');
-    $('.pagination').append('<ul>');
-    for (i=0; i <= page; i++) {
-        pageNum += 1;
-        $('.pagination ul').append('<li><a href="#">'+pageNum+'</a></li>');
-        $('.pagination ul li a').on('click', () => {
+        $('.page').append('<div class="pagination">');
+        $('.pagination').append('<ul>');
+        for (i=0; i <= studentList.length/10; i++) {
+            pageNumber += 1;
+        $('.pagination ul').append('<li><a href="#">'+pageNumber+'</a></li>');
+        $('.pagination ul li a').on('click', function(){
             let page = this.textContent;
-            showPage(stList, page);
+            showPage(page, studentList);
         });
     }
 }
 appendPageLinks();
-showPage(stList, page);
+showPage(page, studentList);
+
 
 
 // Add functionality to the pagination buttons so that they show and hide the correct items
@@ -55,10 +60,6 @@ showPage(stList, page);
 
 
 
-
-
-
-//exceeds
 //search functionality
 function searchList() {
     // Obtain the value of the search input
