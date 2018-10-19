@@ -10,6 +10,7 @@ let pageNumber = 0;
 
 
 // function which makes the page display only 10 students at a time. sets up the pages to be used in the page links in the next function
+// achieved the amount of 10 by making minimum and maximum parameters
 const showPage = (page, studentList) => {
     let max = 10 * page - 1;
     let min = 10 * page - 10;
