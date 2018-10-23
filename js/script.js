@@ -46,7 +46,7 @@ const searchList = () => {
     $('.page-header').append('<div class="student-search">');
     $('.student-search').append('<input placeholder="Searching for students...">');
     $('.student-search').append('<button>Search</button>');
-    $('.student-search').on('keyup', () => {
+    $('.student-search').on('keyup click', () => {
         const searchResult = $('input').val();
         for (let i = 0; i < studentList.length; i++) {
             let check = studentList[i].textContent.toLowerCase();
