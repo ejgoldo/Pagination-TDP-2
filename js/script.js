@@ -41,7 +41,7 @@ appendPageLinks();
 showPage(page, studentList);
 
 
-//search functionality
+//search functionality, currently only keyup. keyup overtaking click
 const searchList = () => {
     $('.page-header').append('<div class="student-search">');
     $('.student-search').append('<input placeholder="Searching for students...">');
