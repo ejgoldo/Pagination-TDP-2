@@ -47,6 +47,7 @@ const searchList = () => {
     $('.student-search').append('<input placeholder="Searching for students...">');
     $('.student-search').append('<button>Search</button>');
     $('.student-search').on('keyup click', () => {
+    // first part of search function which mostly has keyup working. 
         const searchResult = $('input').val();
         for (let i = 0; i < studentList.length; i++) {
             let check = studentList[i].textContent.toLowerCase();
@@ -56,7 +57,10 @@ const searchList = () => {
                 studentList[i].style.display = 'none';
             }
         }
+    // second part of search function which should at click, display user search results as well as corresponding pages
+        
     });
+    
     // Obtain the value of the search input
     // remove the previous page link section    
     // Loop over the student list, and for each student…
