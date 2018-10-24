@@ -6,7 +6,7 @@ FSJS project 2 - List Filter and Pagination
 // variables which hold the list of students from the HTML and the page and page numbers which are created dynamically
 const list = $('.student-item');
 let page = 1;
-let pageNumber = 0;
+let pageNum = 0;
 
 
 // function which makes the page display only 10 students at a time. 
@@ -24,22 +24,48 @@ function showPage(/* arguments here for page number and student list */ page, li
  }
 
 
+ function appendPageLinks(/* take a student list as an argument */ list) {
+    // determine how many pages for this student list 
+    let pages = $('.student-item').length/10;
+    // create a page link section    
+    $('.page').append('<div class="pagination">');
+    $('.pagination').append('<ul>');
+    // “for” every page
+    for (i = 0; i <= pages; i++) {
+        // add a page link to the page link section
+        pageNum += 1;
+        $('.pagination ul').append('<li><a href="#">'+pageNum+'</a></li>');
+    // remove the old page link section from the site
+    // append our new page link section to the site
+    // define what happens when you click a link
+        $('.pagination ul li a').on('click', function(){
+        // Use the showPage function to display the page for the link clicked
+          let page = this.textContent;
+          showPage(page, list);
+        // mark that link as “active”
+        
+        });
+    }
+}
+appendPageLinks(list);
+showPage(page, list);
+
 
 // created the page links dynamically and connected it to the showPage function above. 
-const appendPageLinks = () => {
-        $('.page').append('<div class="pagination">');
-        $('.pagination').append('<ul>');
-        for (i=0; i <= list.length/10; i++) {
-            pageNumber += 1;
-            $('.pagination ul').append('<li><a href="#">'+pageNumber+'</a></li>');
-            $('.pagination ul li a').on('click', function(){
-                let page = this.textContent;
-                showPage(page, list);
-            });
-        }
-}
-appendPageLinks();
-showPage(page, list);
+// const appendPageLinks = () => {
+//         $('.page').append('<div class="pagination">');
+//         $('.pagination').append('<ul>');
+//         for (i=0; i <= list.length/10; i++) {
+//             pageNumber += 1;
+//             $('.pagination ul').append('<li><a href="#">'+pageNumber+'</a></li>');
+//             $('.pagination ul li a').on('click', function(){
+//                 let page = this.textContent;
+//                 showPage(page, list);
+//             });
+//         }
+// }
+// appendPageLinks();
+// showPage(page, list);
 
 
 //added student-search div
