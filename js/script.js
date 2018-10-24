@@ -41,14 +41,25 @@ appendPageLinks();
 showPage(page, studentList);
 
 
-//added search input box and button to site
+//added student-search div
 $('.page-header').append('<div class="student-search">');
 $('.student-search').append('<input placeholder="Searching for students...">');
 $('.student-search').append('<button>Search</button>');
-const searchList = () => {
+
+//search function
+const searchList = () => {  
+    // what has been working before
     $('.student-search').on('keyup click', (e) => {   
-        const searchInput = $('input').val().toLowerCase().trim();
-        
+        e.preventDefault();
+        const searchResult = $('input').val();
+        for (let i = 0; i < studentList.length; i++) {
+            let check = studentList[i].textContent.toLowerCase();
+            if (check.indexOf(searchResult) !== -1) {
+                studentList[i].style.display = 'block';
+            } else {
+                studentList[i].style.display = 'none';
+            }
+        }
     });
 
     // Obtain the value of the search input
