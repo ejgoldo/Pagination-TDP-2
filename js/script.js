@@ -30,8 +30,8 @@ const appendPageLinks = () => {
         $('.pagination').append('<ul>');
         for (i=0; i <= studentList.length/10; i++) {
             pageNumber += 1;
-        $('.pagination ul').append('<li><a href="#">'+pageNumber+'</a></li>');
-        $('.pagination ul li a').on('click', function(){
+            $('.pagination ul').append('<li><a href="#">'+pageNumber+'</a></li>');
+            $('.pagination ul li a').on('click', function(){
             let page = this.textContent;
             showPage(page, studentList);
         });
