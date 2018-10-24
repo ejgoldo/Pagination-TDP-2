@@ -47,17 +47,8 @@ $('.student-search').append('<input placeholder="Searching for students...">');
 $('.student-search').append('<button>Search</button>');
 const searchList = () => {
     $('.student-search').on('keyup click', (e) => {   
-        // the code below allows keyup to display students I'm looking for. however, once the entry is deleted off of the input section, the page function turns off and full list of students is displayed. 
-        e.preventDefault();
-        const searchResult = $('input').val();
-        for (let i = 0; i < studentList.length; i++) {
-            let check = studentList[i].textContent.toLowerCase();
-            if (check.indexOf(searchResult) !== -1) {
-                studentList[i].style.display = 'block';
-            } else {
-                studentList[i].style.display = 'none';
-            }
-        }
+        const searchInput = $('input').val().toLowerCase().trim();
+        
     });
 
     // Obtain the value of the search input
