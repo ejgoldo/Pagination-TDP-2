@@ -4,23 +4,24 @@ FSJS project 2 - List Filter and Pagination
 ******************************************/
 
 // variables which hold the list of students from the HTML and the page and page numbers which are created dynamically
-const studentList = $('.student-item');
+const list = $('.student-item');
 let page = 1;
 let pageNumber = 0;
 
 
-// function which makes the page display only 10 students at a time. sets up the pages to be used in the page links in the next function
-// achieved the amount of 10 by making minimum and maximum parameters
-const showPage = (page, studentList) => {
-    let max = 10 * page - 1;
-    let min = 10 * page - 10;
-    for (i = 0; i < studentList.length; i++) {
-       studentList[i].style.display = 'none';
-       if (i >= min && i <= max) {
-           studentList[i].style.display = 'block';
+// function which makes the page display only 10 students at a time. 
+function showPage(/* arguments here for page number and student list */ page, list) {
+    // first hide all students on the page
+    $('.student-item').hide();
+    // Then loop through all students in our student list argument
+    for (let i = 0; i < list.length; i++) {
+       // if student should be on this page number
+       if (i >= (page * 10) - 10 && i <= (page * 10) - 1) {
+       	// show the student
+        list[i].style.display = 'block';
        }
-     }
-}
+    }
+ }
 
 
 
@@ -28,17 +29,17 @@ const showPage = (page, studentList) => {
 const appendPageLinks = () => {
         $('.page').append('<div class="pagination">');
         $('.pagination').append('<ul>');
-        for (i=0; i <= studentList.length/10; i++) {
+        for (i=0; i <= list.length/10; i++) {
             pageNumber += 1;
             $('.pagination ul').append('<li><a href="#">'+pageNumber+'</a></li>');
             $('.pagination ul li a').on('click', function(){
-            let page = this.textContent;
-            showPage(page, studentList);
-        });
-    }
+                let page = this.textContent;
+                showPage(page, list);
+            });
+        }
 }
 appendPageLinks();
-showPage(page, studentList);
+showPage(page, list);
 
 
 //added student-search div
@@ -51,12 +52,12 @@ const searchList = () => {
     // what has been working before
     $('.student-search').on('keyup click', () => {   
         const searchResult = $('input').val();
-        for (let i = 0; i < studentList.length; i++) {
-            let check = studentList[i].textContent.toLowerCase();
+        for (let i = 0; i < list.length; i++) {
+            let check = list[i].textContent.toLowerCase();
             if (check.indexOf(searchResult) !== -1) {
-                studentList[i].style.display = 'block';
+                list[i].style.display = 'block';
             } else {
-                studentList[i].style.display = 'none';
+                list[i].style.display = 'none';
             }
         }
     });
