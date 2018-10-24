@@ -43,29 +43,12 @@ function showPage(/* arguments here for page number and student list */ page, li
           let page = this.textContent;
           showPage(page, list);
         // mark that link as “active”
-        
+
         });
     }
 }
 appendPageLinks(list);
 showPage(page, list);
-
-
-// created the page links dynamically and connected it to the showPage function above. 
-// const appendPageLinks = () => {
-//         $('.page').append('<div class="pagination">');
-//         $('.pagination').append('<ul>');
-//         for (i=0; i <= list.length/10; i++) {
-//             pageNumber += 1;
-//             $('.pagination ul').append('<li><a href="#">'+pageNumber+'</a></li>');
-//             $('.pagination ul li a').on('click', function(){
-//                 let page = this.textContent;
-//                 showPage(page, list);
-//             });
-//         }
-// }
-// appendPageLinks();
-// showPage(page, list);
 
 
 //added student-search div
