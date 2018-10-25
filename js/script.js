@@ -43,45 +43,43 @@ function showPage(page, list) {
           $(this).addClass('active');
       });
 }
-appendPageLinks(list);
-showPage(page, list);
-
-
 
 //added student-search div
 $('.page-header').append('<div class="student-search">');
 $('.student-search').append('<input placeholder="Searching for students...">');
 $('.student-search').append('<button>Search</button>');
 
-//search function
-const searchList = () => {  
-    // what has been working before
-    $('.student-search').on('keyup click', () => {   
-        const searchResult = $('input').val();
-        for (let i = 0; i < list.length; i++) {
-            let check = list[i].textContent.toLowerCase();
-            if (check.indexOf(searchResult) !== -1) {
-                list[i].style.display = 'block';
-            } else {
-                list[i].style.display = 'none';
-            }
-        }
-    });
+function searchList() {	
+    let entInput = $('input').val().toLowerCase().trim();
 
-    // Obtain the value of the search input
-    // remove the previous page link section    
-    // Loop over the student list, and for each student…
-// ...obtain the student’s name…
-// ...and the student’s email…
-// ...if the search value is found inside either email or name…
-    		// ...add this student to list of “matched” student
-    // If there’s no “matched” students…
-           // ...display a “no student’s found” message
-    // If over ten students were found…
-           // ...call appendPageLinks with the matched students
-   // Call showPage to show first ten students of matched list
+    let matched = list.filter(function(i) {
+      let email = $(this).find('.email').text();
+      let names = $(this).find('h3').text();
+      if (names.indexOf(entInput) > -1 || email.indexOf(entInput) > -1) {
+        return true;
+      }
+      return false;
+});
+        if (matched.length === 0 ) {
+        	$('.page-header h2').text('No Results');
+        } else {
+        	$('.page-header h2').text('STUDENTS');
+        }
+        let filtered = showPage(matched);
+        $('.pagination').remove();
+        if (matched.length >= 10) {
+          appendPageLinks(filtered);
+        }
+        showPages(page, filtered);
 }
-searchList();
+
+
+appendPageLinks(list);
+showPage(page, list);
+
+
+$('.student-search').find('button').on('click', searchList);
+$('.student-search').find('input').keyup(searchList);
 
 
 
