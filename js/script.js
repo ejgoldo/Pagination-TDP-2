@@ -3,16 +3,32 @@ Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
 
-// variables which hold the list of students from the HTML and the page and page numbers
+// student information put into variables, one to contain them and the other to put them into pages and/or a list
 let studentInfo = $('.student-item');
-let list = pages(studentInfo);
+let studentList = pages(studentInfo);
 
-function showPage(/* arguments here for page number and student list */) {
-    // first hide all students on the page
-    // Then loop through all students in our student list argument
-       // if student should be on this page number
-       	// show the student
+//grabs the list of students and puts it into an array. making it easier to select elements from the list in future functions
+function pages(list) {
+    let originalList = list.slice();
+    let arrayPages = [];
+    while (originalList.length) {
+        arrayPages.push(originalList.splice(0, 10));
+    }
+    return arrayPages;
+}
+
+// only displays the first page of the array by using the previous function
+function showPage(pageNum, pagesOfList) {
+    $('.student-list').hide();
+    $.each(pagesOfList, function(index, page){
+        if (pageNum === index) {
+            $.each(page, function(i, listItem){
+                $(listItem).show();
+            });
+        }
+    });
  }
+ showPage();
 
  function appendPageLinks(/* take a student list as an argument */) {
     // determine how many pages for this student list 
