@@ -10,45 +10,42 @@ let pageNum = 0;
 
 
 // function which makes the page display only 10 students at a time. 
-function showPage(/* arguments here for page number and student list */ page, list) {
-    // first hide all students on the page
+function showPage(page, list) {
     $('.student-item').hide();
-    // Then loop through all students in our student list argument
     for (let i = 0; i < list.length; i++) {
-       // if student should be on this page number
        if (i >= (page * 10) - 10 && i <= (page * 10) - 1) {
-       	// show the student
         list[i].style.display = 'block';
        }
     }
  }
 
 
- function appendPageLinks(/* take a student list as an argument */ list) {
-    // determine how many pages for this student list 
+ function appendPageLinks(list) {
+    // first get the amount of pages that will be needed for the list of students
     let pages = $('.student-item').length/10;
-    // create a page link section    
+    // dynamically create pagination div and contents   
     $('.page').append('<div class="pagination">');
     $('.pagination').append('<ul>');
-    // “for” every page
-    for (i = 0; i <= pages; i++) {
-        // add a page link to the page link section
-        pageNum += 1;
-        $('.pagination ul').append('<li><a href="#">'+pageNum+'</a></li>');
-    // remove the old page link section from the site
-    // append our new page link section to the site
-    // define what happens when you click a link
-        $('.pagination ul li a').on('click', function(){
+    // loop through every page and add a page link to the pagination div
+      for (i = 0; i <= pages; i++) {
+          pageNum += 1;
+          $('.pagination ul').append('<li><a href="#">'+pageNum+'</a></li>');
+      }
+    // set the "active" class to the first page 
+      $('a').first().addClass('active');  
+    // function that on click shows the varying content for each page and passes the "active" class to whichever page is clicked and removes the class from the one that was previously "active"
+      $('.pagination ul li a').on('click', function(){
         // Use the showPage function to display the page for the link clicked
           let page = this.textContent;
           showPage(page, list);
-        // mark that link as “active”
-
-        });
-    }
+          $('a').removeClass();
+          $(this).parent().find('li.active').removeClass('active');
+          $(this).addClass('active');
+      });
 }
 appendPageLinks(list);
 showPage(page, list);
+
 
 
 //added student-search div
