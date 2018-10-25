@@ -3,7 +3,7 @@ Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
 
-// variables which hold the list of students from the HTML and the page and page numbers which are created dynamically
+// variables which hold the list of students from the HTML and the page and page numbers
 const list = $('.student-item');
 let page = 1;
 let pageNum = 0;
