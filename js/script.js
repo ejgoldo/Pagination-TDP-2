@@ -3,11 +3,11 @@ Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
 
-// student information put into variables, one to contain them and the other to put them into pages and/or a list
+// student information put into variables, one to contain them and the other to put them into pages and/or a list. also, put the student-search div and pagination div into variables
 let studentInfo = $('.student-item');
-let studentList = pages(studentInfo);
-
-$('.page-header').append('<div class="student-search"><input placeholder="Search for students..."><button>Search</button></div>');
+let searchDiv ='<div class="student-search"><input id="search" placeholder="Search for students..."><button>Search</button></div>';
+var pagDiv ='<div class="pagination"><ul></ul></div>';
+var studentList = pages(studentInfo);
 
 
 //grabs the list of students and puts it into an array. making it easier to select elements from the list in future functions
