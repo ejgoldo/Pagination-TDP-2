@@ -17,7 +17,7 @@ function pages(list) {
     return arrayPages;
 }
 
-// only displays the first page of the array by using the previous function
+// only displays the first page of the array by using the previous pages(list) function
 function showPage(pageNum, pagesOfList) {
     $('.student-list').hide();
     $.each(pagesOfList, function(index, page){
@@ -28,19 +28,32 @@ function showPage(pageNum, pagesOfList) {
         }
     });
  }
- showPage();
 
- function appendPageLinks(/* take a student list as an argument */) {
-    // determine how many pages for this student list 
-    // create a page link section
-    // “for” every page
-        // add a page link to the page link section
-    // remove the old page link section from the site
-    // append our new page link section to the site
-    // define what happens when you click a link
-        // Use the showPage function to display the page for the link clicked
-        // mark that link as “active”
+ function appendPageLinks(pagesOfList) {
+    //  dynamically create the pagination div and ul
+     $('.page').append('<div class="pagination"></div>');
+     $('.pagination').append('<ul>');
+    // number of pages is determined by the length of pagesOfList
+    let numberOfPages = pagesOfList.length;
+    // in this for loop a page or li is added based on the numberOfPages variable
+    for (let i = 0; i < numberOfPages; i++) {
+        $('.pagination').append('<li><a href="#">'+ i +'</a></li>')
+    }
+    // add the active class to the first a tag of the list
+    $('.pagination ul li a').first().addClass('active');
+
+    // click declares which page becomes active by receiving the active class
+    $('.pagination ul li a').on('click', function(e) {
+        let pageSelected = parseInt($(this)[0].text) - 1;
+        // showPage displays the page that is clicked and adds the active class
+        showPage(pageSelected, pagesOfList);
+        $('.pagination ul li a').removeClass();
+        // after class is removed from the starting page through a click, the clicked page becomes active
+        $(this).addClass('active');
+        e.preventDefault();
+    });
 }
+
 
 function searchList() {
     // Obtain the value of the search input
@@ -58,4 +71,5 @@ function searchList() {
 }
 
 
-
+appendPageLinks(studentList);
+showPage(0, studentList);
