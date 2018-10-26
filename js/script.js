@@ -7,6 +7,9 @@ FSJS project 2 - List Filter and Pagination
 let studentInfo = $('.student-item');
 let studentList = pages(studentInfo);
 
+$('.page-header').append('<div class="student-search"><input placeholder="Search for students..."><button>Search</button></div>');
+
+
 //grabs the list of students and puts it into an array. making it easier to select elements from the list in future functions
 function pages(list) {
     let originalList = list.slice();
@@ -19,7 +22,7 @@ function pages(list) {
 
 // only displays the first page of the array by using the previous pages(list) function
 function showPage(pageNum, pagesOfList) {
-    $('.student-list').hide();
+    $('.student-list li').hide();
     $.each(pagesOfList, function(index, page){
         if (pageNum === index) {
             $.each(page, function(i, listItem){
@@ -36,8 +39,8 @@ function showPage(pageNum, pagesOfList) {
     // number of pages is determined by the length of pagesOfList
     let numberOfPages = pagesOfList.length;
     // in this for loop a page or li is added based on the numberOfPages variable
-    for (let i = 0; i < numberOfPages; i++) {
-        $('.pagination').append('<li><a href="#">'+ i +'</a></li>')
+    for (let i = 0; i <= numberOfPages; i++) {
+        $('.pagination ul').append('<li><a href="#">'+ i +'</a></li>')
     }
     // add the active class to the first a tag of the list
     $('.pagination ul li a').first().addClass('active');
@@ -56,20 +59,33 @@ function showPage(pageNum, pagesOfList) {
 
 
 function searchList() {
-    // Obtain the value of the search input
-    // remove the previous page link section    
-    // Loop over the student list, and for each student…
-// ...obtain the student’s name…
-// ...and the student’s email…
-// ...if the search value is found inside either email or name…
-    		// ...add this student to list of “matched” student
-    // If there’s no “matched” students…
-           // ...display a “no student’s found” message
-    // If over ten students were found…
-           // ...call appendPageLinks with the matched students
-   // Call showPage to show first ten students of matched list
-}
+    let search = $('input').val().toLowerCase().trim();
+    let matched = studentInfo.filter(function (i) {
+        let email = $(this).find('.email').text();
+        let names = $(this).find('h3').text();
+        if (names.indexOf(search) > -1 || email.indexOf(search) > -1) {
+            return true;
+        }
+        return false;
+    });
 
+    if (matched.length === 0) {
+        $('.page-header h2').text('No results found, please try again.')
+    } else {
+        $('.page-header h2').text('STUDENTS')
+    }
+
+    let newPages = pages(matched);
+    $('.pagination').remove();
+    if (matched.length >= 10) {
+        appendPageLinks(newPages);
+    }
+    showPage(0, newPages);
+}
 
 appendPageLinks(studentList);
 showPage(0, studentList);
+
+// event listeners for search functionality
+$('.student-search').find('button').on('click', studentList);
+$('.student-search').find('input').keyup(studentList);
