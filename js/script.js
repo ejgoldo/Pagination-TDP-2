@@ -38,14 +38,14 @@ function showPage(pageNumber, pageList) {
     //  dynamically create the pagination div and ul
      $('.page').append(pagDiv);
     // number of pages is determined by the length of pagesOfList
-    var numberOfPages = pageList.length;
+    let numberOfPages = pageList.length;
     // in this for loop, a page or li is added based on the numberOfPages variable
-    for (var i = 0; i <= numberOfPages; i++) {
-        var buttons = '<li><a href="#">'+ i +'</a></li>';
+    for (let i = 0; i <= numberOfPages; i++) {
+        let buttons = '<li><a href="#">'+ i +'</a></li>';
         $('.pagination ul').append(buttons);
     }
     // add the active class to the first a tag of the list
-    $('.pagination ul li a').first().addClass('active');
+    $('.pagination ul li a').first().addClass('active').hide();
 
     // click declares which page becomes active by receiving the active class
     $('.pagination ul li a').on('click', function(e) {
