@@ -39,7 +39,7 @@ function showPage(pageNumber, pageList) {
      $('.page').append(pagDiv);
     // number of pages is determined by the length of pagesOfList
     var numberOfPages = pageList.length;
-    // in this for loop a page or li is added based on the numberOfPages variable
+    // in this for loop, a page or li is added based on the numberOfPages variable
     for (var i = 0; i <= numberOfPages; i++) {
         var buttons = '<li><a href="#">'+ i +'</a></li>';
         $('.pagination ul').append(buttons);
@@ -61,7 +61,9 @@ function showPage(pageNumber, pageList) {
 
 
 function searchList() {
+    // get user input
     let search = $('input').val().toLowerCase().trim();
+    // match user input to student information
     let matched = studentInfo.filter(function (i) {
         let email = $(this).find('.email').text();
         let names = $(this).find('h3').text();
@@ -71,12 +73,14 @@ function searchList() {
         return false;
     });
 
+    // if user input does not lead to a student name, display message of no student found
     if (matched.length === 0) {
-        $('.page-header h2').text('No results found, please try again.')
+        $('.page-header h2').text('No student found.')
     } else {
         $('.page-header h2').text('STUDENTS')
     }
 
+    // user matches display and new page links are made if user matches reach more than 10
     let newPages = pages(matched);
     $('.pagination').remove();
     if (matched.length >= 10) {
